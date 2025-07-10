@@ -1,0 +1,43 @@
+# Spring Boot (Java)
+/target/
+pom.xml.tag
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+/build/
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+logs/
+hs_err_pid*
+
+# React (Frontend)
+/node_modules
+/build
+/dist
+/coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# General
+.DS_Store
+Thumbs.db
