@@ -41,3 +41,5 @@ yarn-error.log*
 # General
 .DS_Store
 Thumbs.db
+
+./products/*.csv
