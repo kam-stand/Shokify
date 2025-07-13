@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: shokify-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: Kamrul14
+      MYSQL_DATABASE: shokify
+      MYSQL_USER: shokify_user
+      MYSQL_PASSWORD: Kamrul14!
+    ports:
+      - "3306:3306" # Host port 3306 maps to container port 3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: shokify-backend
+    depends_on:
+      - mysql-db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/shokify?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: shokify_user
+      SPRING_DATASOURCE_PASSWORD: Kamrul14!
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: shokify-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8080
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
