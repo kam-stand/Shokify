@@ -43,3 +43,5 @@ yarn-error.log*
 Thumbs.db
 
 products/*.csv
+
+products/.env
