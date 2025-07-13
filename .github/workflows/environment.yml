@@ -34,12 +34,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas numpy python-dotenv mysql-connector-python
 
-    - name: Make init.sh executable
-      run: chmod +x ./init_db/init.sh
 
-    - name: Run init.sh to initialize database
+    - name: Run init.sh from init_db directory
       env:
         MYSQL_ROOT_USER: root
         MYSQL_ROOT_PASSWORD: Kamrul14!
         MYSQL_HOST: 127.0.0.1
-      run: ./init_db/init.sh
+      run: |
+        cd init_db
+        chmod +x init.sh
+        ./init.sh
