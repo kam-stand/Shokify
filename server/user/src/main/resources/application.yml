@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: user-service   # MUST match the config file name in config server
+  config:
+    import: optional:configserver:http://localhost:8888
