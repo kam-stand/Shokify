@@ -63,7 +63,6 @@ def create_inventory_db(name="shokify_inventory"):
     """)
     print(f"✅ 'inventory' table created in {name}")
     conn.close()
-
 def create_order_db(name="shokify_order"):
     create_database(mycursor, name)
     conn = mysql.connector.connect(
@@ -73,25 +72,52 @@ def create_order_db(name="shokify_order"):
         database=name
     )
     cursor = conn.cursor()
+
+    # Orders Table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders (
             order_id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT,
-            order_date DATETIME,
-            status VARCHAR(50)
+            order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+            status VARCHAR(50),
+            total DECIMAL(10,2)
         )
     """)
+
+    # Order Items Table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS order_items (
             item_id INT AUTO_INCREMENT PRIMARY KEY,
             order_id INT,
             product_id INT,
             quantity INT,
-            price_at_time DECIMAL(10,2)
+            price_at_time DECIMAL(10,2),
+            FOREIGN KEY (order_id) REFERENCES orders(order_id)
         )
     """)
-    print(f"✅ 'orders' and 'order_items' tables created in {name}")
+
+    # Cart Table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS cart (
+            cart_id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT
+        )
+    """)
+
+    # Cart Items Table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS cart_items (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            cart_id INT,
+            product_id INT,
+            quantity INT,
+            FOREIGN KEY (cart_id) REFERENCES cart(cart_id)
+        )
+    """)
+
+    print(f"✅ 'orders', 'order_items', 'cart', and 'cart_items' tables created in {name}")
     conn.close()
+
 
 def create_user_db(name="shokify_user"):
     create_database(mycursor, name)

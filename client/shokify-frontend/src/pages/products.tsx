@@ -38,7 +38,7 @@ const Products = () => {
     try {
       setLoading(true);
       // Try to fetch from backend first
-      const response = await fetch("http://localhost:8080/api/products");
+      const response = await fetch("http://localhost:8080/api/v1/products");
 
       if (!response.ok) {
         // If backend fails, use local products.json

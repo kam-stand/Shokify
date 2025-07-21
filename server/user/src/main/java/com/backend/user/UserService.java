@@ -22,6 +22,7 @@ public class UserService {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setPassword_hash(userDto.getPassword());
+        user.setRole(userDto.getRole());
         return userRepository.addUser(user);
     }
 
